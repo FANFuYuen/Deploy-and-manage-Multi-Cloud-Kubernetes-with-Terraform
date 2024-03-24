@@ -34,10 +34,6 @@ override.tf.json
 terraform.rc
 
 /*.venv
-/*.terraform
 *.terraform.lock.hcl
 /key/*
-terraform.*
-terraform.*.*
 /.scannerwork
-*.terraform
