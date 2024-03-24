@@ -5,6 +5,7 @@ resource "random_pet" "prefix" {}
 
 provider "azurerm" {
   features {}
+  subscription_id = var.subscription_id
 }
 
 resource "azurerm_resource_group" "default" {
