@@ -37,3 +37,7 @@ terraform.rc
 *.terraform.lock.hcl
 /key/*
 /.scannerwork
+*.terraform
+terraform.*
+terraform.*.*
+/*.terraform
