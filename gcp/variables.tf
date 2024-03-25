@@ -1,10 +1,14 @@
 variable "project_id" {
   description = "GCP project_id"
-  default     = "   "
+  default     = "fan-itp4121mcloud"
 }
 
 variable "region" {
-  default     = "us-east-2"
+  default     = "asia-east2"
   description = "GCP Region"
 }
 
+variable "zone"{
+  description = "Zone for infrastructure"
+  default = "asia-east2-a"
+}
