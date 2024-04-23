@@ -2,7 +2,7 @@
 resource "google_container_cluster" "gke_cluster" {
   name                     = "gke-cluster"
   location                 = var.region
-  network                  = google_compute_network.4121-vpc-network.self_link
+  network                  = google_compute_network.itp4121-vpc-network.self_link
   subnetwork               = google_compute_subnetwork.private_subnet_1.self_link
   remove_default_node_pool = true
   initial_node_count       = 1
