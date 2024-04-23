@@ -10,7 +10,7 @@ resource "db_parameter_group" "rds4121" {
 
 resource "aws_db_instance" "rds4121" {
   identifier             = "rds4121-database"
-  instance_class         = "db.t2.micro" 
+  instance_class         = "db.t2.micro" 1
   allocated_storage      = 5
   engine                 = "postgres"
   engine_version         = "14.11"
