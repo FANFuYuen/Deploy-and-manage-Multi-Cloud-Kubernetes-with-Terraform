@@ -17,13 +17,13 @@ variable "zone"{
   default = "asia-east2-a"
 }
 
-variable "ip_private_cidr_range" {
+variable "private_cidr_ranges" {
   type          = list(string)
   description   = "Range of private subnetwork."
   default       = ["10.10.1.0/24", "10.10.2.0/24"]
 }
 
-variable "ip_public_cidr_range" {
+variable "public_cidr_ranges" {
   type          = list(string)
   description   = "Range of public subnetwork."
   default       = ["10.10.3.0/24", "10.10.4.0/24"]
