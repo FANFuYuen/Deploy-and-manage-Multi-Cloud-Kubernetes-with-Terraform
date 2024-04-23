@@ -3,6 +3,8 @@
 
 provider "aws" {
   region = var.region
+  shared_credentials_files = ["${path.module}/../key/aws_credentials.ini"]
+  profile = "default" 
 }
 
 data "aws_availability_zones" "available" {}
@@ -20,7 +22,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.1.1"
 
-  name            = "education-eks"
+  name            = "k8s-vpc"
   cidr            = "10.0.0.0/16"
   azs             = data.aws_availability_zones.available.names
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
@@ -42,6 +44,15 @@ module "vpc" {
   private_subnet_tags = {
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
     "kubernetes.io/role/internal-elb"             = 1
+  }
+}
+
+resource "db_subnet_group" "vpc" {
+  name       = "rds_db_subnet"
+  subnet_ids = module.vpc.public_subnets
+
+  tags = {
+    Name = "k8s-vpc"
   }
 }
 
