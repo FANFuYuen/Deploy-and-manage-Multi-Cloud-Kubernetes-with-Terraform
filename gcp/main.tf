@@ -26,3 +26,10 @@ resource "google_compute_instance" "vm_instance" {
   }
 }
 
+resource "google_container_cluster" "primary" {
+  name     = "gke-cluster"
+  location = var.region
+
+  # Other cluster configuration properties
+  # ...
+}

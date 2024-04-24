@@ -5,7 +5,10 @@ resource "random_pet" "prefix" {}
 
 provider "azurerm" {
   features {}
-  subscription_id = var.subscription_id
+}
+
+locals {
+  azure_credentials = jsondecode(file("..//key/azure.rbac.txt"))
 }
 
 resource "azurerm_resource_group" "default" {
@@ -22,18 +25,26 @@ resource "azurerm_kubernetes_cluster" "default" {
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
   dns_prefix          = "${random_pet.prefix.id}-k8s"
-  kubernetes_version  = "1.26.3"
+  kubernetes_version  = "1.29.2"
+
+  network_profile {
+    network_plugin     = "azure"
+    network_policy     = "calico"
+    dns_service_ip     = "10.0.3.10"
+    service_cidr       = "10.0.3.0/24"
+  }
 
   default_node_pool {
-    name            = "default"
-    node_count      = 3
+    name            = "defyault"
+    node_count      = 2
     vm_size         = "Standard_D2_v2"
     os_disk_size_gb = 30
+    vnet_subnet_id  = azurerm_subnet.subneta.id
   }
 
   service_principal {
-    client_id     = var.appId
-    client_secret = var.password
+    client_id     = local.azure_credentials.appId
+    client_secret = local.azure_credentials.password
   }
 
   role_based_access_control_enabled = true
