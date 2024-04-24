@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-v1-public
+  namespace: default # This is the default namespace
+spec:
+  type: LoadBalancer
+  selector:
+    app: web-v1
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
